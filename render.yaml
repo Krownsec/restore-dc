@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: restore-bot
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: CLIENT_ID
+        sync: false
+      - key: DEV_GUILD_ID
+        sync: false
+      - key: DB_PATH
+        value: ./database/restore.db
+      - key: BACKUP_CRON
+        value: "0 */6 * * *"
+      - key: BACKUP_DIR
+        value: ./backups
+    disk:
+      name: restore-bot-data
+      mountPath: /opt/render/project/src/database
+      sizeGB: 1
